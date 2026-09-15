@@ -1,0 +1,64 @@
+
+Slide deck draft
+
+1. Title. Write It Like It's Going to Court.
+
+2. Cold open. Two lines of a redirect exchange, reconstructed. "And every number underlying that opinion, whose numbers are they?" "His." Spoken: that is the last thing a jury heard before the witness stepped down. The critique of the report was built entirely from the report. Nothing added. That is what this talk teaches you to prevent. (this is from a live video matter.)
+
+3. Nobody reads your report. Spoken: you write for a reader who is on your side, in a hurry, and inclined to believe you. That reader exists. Then a second one turns up.
+
+4. The second reader. Opposing expert. Regulator's technical staff. Insurer's forensic reviewer. Your client's new CISO in three years. Spoken: paid to find the sentence where you claimed more than you showed. The sentence is almost always there.
+
+5. Who I am, in one slide. Court-qualified since 2007. A hundred-plus matters. A large share of it is reviewing reports by competent people and explaining where they stopped being reliable. Spoken: I am not here because I write perfect reports. I am here because I have read a lot of imperfect ones very slowly.
+
+6. Honest operator, hostile verifier. Spoken: this is the design assumption. Assume you are honest. Assume the reader is competent, hostile, and has all afternoon. Every rule that follows falls out of those two sentences.
+
+7. Five words. Prove. Attest. Assert. Record. Verify. Each in its own lane. Say what each means in one line. Then: guarantee gets no lane. If you find it in your draft, you have found a claim you cannot back.
+
+8. The catalogue. Ten ways to lose. Each one: the sentence as written, the question that kills it, the rewrite. Spoken: none of these are about bad testing. All of them are about writing.
+
+9. One. Conclusion without observation. As written: "The host was compromised." Question: "What did you observe that led you to that conclusion, and where in your report is it?" Rewrite: three artifacts, their paths, their hashes, the time they were collected, and then the inference. Spoken: the conclusion is yours. The observation is the evidence. Put the evidence first and the reader can disagree with your inference without disagreeing with your facts.
+
+10. Two. The absence claim. As written: "No evidence of exfiltration was found." Question: "What did you search, with what tool, for what indicators, and what would exfiltration have looked like in that data if it had occurred?" Rewrite: where you looked, what you used, what it could have seen, what it could not, and only then the null. Spoken: "no evidence of" and "did not look for" get written the same way. A null result is only a result if you say what the search could have found. 
+
+11. Two, continued. A floor, not a ceiling. As written: "Attacker reads on S3 were limited to the following objects." Question: "Was object-level logging enabled on every bucket, or only some?" Rewrite: the surviving data-event trail covered two buckets. Reads on any other bucket in the window are invisible. The finding is a floor on what was taken, not a ceiling. Spoken: the report said so, in those words. The other side's expert read it, agreed, and moved on. That is what surviving looks like. 
+
+12. Three. Severity with no basis. As written: "Critical." Question: "By what criteria? Show me the scoring, the inputs, and who applied them." Rewrite: the framework, the vector, the assumptions, and a line saying what would change the rating. Spoken: a severity rating without a basis is an adjective. Adjectives do not survive cross.
+
+13. Four. Unreconciled clocks. As written: a timeline with events from four sources, all listed with timestamps, no source clock noted. Question: "Which of these clocks did you verify, and against what?" Rewrite: every timestamp carries its source and its offset. Spoken: I once had a full document set carrying an event labeled UTC that was Eastern. Caught it in review, corrected it across every document with a change record. Had I not, the first question on cross would have been about a four-hour discrepancy I could not explain.
+
+14. Four, continued. Precision the instrument cannot support. As written: millisecond timestamps from a video source running at roughly fifteen frames per second. Question: "One frame is about sixty-seven milliseconds. Where did the other two decimal places come from?" Rewrite: precision stated to the resolution of the source, with the overlay's own provenance disclosed. Spoken: false precision is a claim. It says your instrument can see something it cannot.
+
+15. Five. Measuring on manufactured data. As written: pixel intensity measured on frames that had been upscaled by an interpolation algorithm at an undisclosed factor. Question: "What fraction of the pixels you measured were recorded by the camera, and what fraction were computed?" Rewrite: measure on the native frame. Upscale for the reader's eyes, never for the number. Spoken: every method in that family invents pixel values the camera never captured. That is fine for looking and fatal for measuring.
+
+16. Five, continued. Tool output is not a finding. As written: a scanner reported CloudTrail logging disabled in two accounts. Underneath: the raw API response was a trail-not-found error, which the tool mapped to logging-off. Question: "Did you look at the raw response, or the tool's interpretation of it?" Rewrite: read the artifact, not the summary. Spoken: same scan misread a permissions boundary as an admin grant and counted denied API calls as successful ones. Five false criticals. Every one of them would have been a finding in someone's report. 
+
+17. Six. Smaller than the noise. As written: a claimed brightness difference of about two gray levels between two conditions, presented as meaningful. The author's own exhibits reported standard deviations for each nine-pixel sample. Standard error of the difference, from his numbers, was about three. Question: "Your difference is smaller than the uncertainty your own data carries. How is it meaningful?" Rewrite: report the effect alongside its error, or do not report the effect. Spoken: he reported the variability himself. He never asked what it implied. That is the criticism, not the math. The math is one line. 
+
+18. Seven. Scope drift. As written: a video analysis that, near the end, correlates a frame with an entry in a phone record. Question: "Where in your stated scope is authentication of cellular records, and what foundation did you lay for that record?" Rewrite: stay in scope, or lay the foundation for the new ground before you step onto it. Spoken: every step outside your stated scope is a step onto ground you did not prepare.
+
+19. Eight. No provenance. As written: a screenshot. Question: "When was this taken, by whom, with what tool at what version, and where is the original?" Rewrite: every artifact carries acquisition time, tool, version, hash, and custodian. Spoken: I once had a script at version 1.6 attached to evidence produced by version 1.5. Different hashes. That is an authentication gap, and the question is "which instrument produced this?" and the answer cannot be "one of them."
+
+20. Nine. Merged strands. As written: "Approximately a terabyte of customer data was exfiltrated." Underneath, three separate facts: a source repository proven at the object level, database snapshots proven as structured data, and a terabyte of egress characterized by billing and never itemized. Question: "Which of those three is the terabyte, and where is the object inventory?" Rewrite: three strands, each stated at its own strength, never allowed to stand in for one another. Spoken: the pressure to produce one number is enormous. The one defensible sentence was "approximately a terabyte left, source and contents not attributed." Later evidence extended it. It never had to be corrected.
+
+21. Ten. The silent correction. As written: version 2 of a memo, with a paragraph changed from version 1, and nothing on the document saying so. Question: "What changed between versions, and why is that not disclosed?" Rewrite: a changes table on the face of the document, including your own errors. Spoken: I have shipped a memo with a table on page one that says "Section 5.4 attributed these events to the wrong service. Corrected." That table is not an embarrassment. It is the reason the rest of the memo is believed.
+
+22. Your documents are exhibits too. Spoken: everything so far was about someone else's report. This part is about yours.
+
+23. The line you have to cut. A rebuttal draft carried the phrase "over fifty percent of the measured pixels were interpolated, even under the most conservative estimate." It was a strong line. It could not be verified without a scale factor the other side never disclosed. It came out. Spoken: if you cannot prove it from what is in front of you, it does not go in, no matter how good it sounds. Especially then.
+
+24. Your CV is a document. A CV entry describing video forensic work as "technical review and expert report preparation on digital evidence." Accurate, and a cross-examiner can read it as "not video." Spoken: every word you have ever published about yourself is available to the second reader. Write the CV like the report.
+
+25. The Non-Claims register. Spoken: alongside what you are claiming, list what you are not. It is the single cheapest thing you can add to a report and it removes the most questions. "This report does not establish the destination of the transfer." "This analysis does not opine on what the object was." Written down, in advance, those are boundaries. Discovered on cross, they are concessions.
+
+26. Two layers. Layer one: mechanical. Hashes, chains, timestamps, things a stranger can check without trusting you. Layer two: human. Your inferences, defended by you, on the stand. Spoken: keep them separate on the page. When they blur, the reader cannot tell which parts to verify and which parts to argue with, so they argue with all of it.
+
+27. The 2027 question. "Did a language model assist in preparing this report?" Spoken: three years ago nobody asked. Now it is a foreseeable question, and "I don't recall" is not an answer. If AI helped, the report should say where, and the record should carry enough to show what it did and did not contribute. Advisory, not evidentiary. Disclosed, not discovered.
+
+28. What I did about it. Spoken: I got tired of watching this and wrote the rules down. Honest operator, hostile verifier, all the way through. 
+
+29. The rule underneath all of it. A specification cannot prohibit lying. It can only make lying detectable. Spoken: the same is true of a report. You cannot write a document that forces the reader to trust you. You can write one that lets a stranger check you. That is the entire difference.
+
+30. On Monday. Five words in their lanes. Observation before conclusion. Null results with search parameters. Every timestamp with its clock. Every artifact with its provenance. What you are not claiming, in writing. Spoken: none of this is hard. All of it is unfamiliar.
+
+31. Close. Spoken: write it for the reader who is going to take it apart. Everyone else will find it easier to read.
