@@ -1,0 +1,28 @@
+Session design, two hours
+
+0:00 to 0:10, brief. Environment on one slide. Threat actor on one slide, sparingly. Ground rules on one slide, left up all session. Tables form. Leads and scribes chosen.
+
+0:10 to 0:45, module one: poisoning.
+
+Inject 1.1, 0:10. SOC ticket. 847 transactions in the last training window share identical null values across three correlated features. Data quality or something else?
+Inject 1.2, 0:18. ML engineer's note. Retrain on cleaned data shows a 34% detection-rate differential against the current production model, concentrated in wire transfers between $45K and $95K to a specific beneficiary tier. Label flipping confirmed at roughly 2.3% in that band.
+Inject 1.3, 0:26. Vendor callback. The enrichment API was compromised through a third-party logging library. Read and write access for roughly ninety days. Twelve-day gap in their forensic timeline that they cannot close.
+Decision point A, 0:32. The production model is suspected and not proven compromised. Tables commit: keep it running, roll back to a pre-window model, or pull it and fall back to rules. Open forum, three minutes per position, then every table commits on the record.
+
+0:45 to 1:20, module two: the pipeline.
+
+Inject 2.1, 0:45. API key flagged in a credential leak. It belongs to the MLOps service account. Registry access logs show reads going back 47 days.
+Inject 2.2, 0:53. Write access confirmed for six of those days. Binary diff on the current staging artifact against its recorded training run: additional weights that force a fixed low-risk output on a specific input pattern. The standard validation suite passes it.
+Inject 2.3, 1:00. Promotion clock. Staging auto-promotes to production in three days. Nobody at the table owns the promotion rule; it was set by someone who left.
+Decision point B, 1:05. Halt the pipeline or ship. Halting means the current production model, which module one just told you is poisoned, stays in production longer. Shipping means a backdoor goes live. There is no clean answer and the room has to pick one anyway.
+Curveball 2.4, 1:12. The experiment tracker. The attacker has been writing base64-encoded command-and-control content into the notes field of experiment metadata. Your MLOps platform has been the C2 channel for weeks. [Original VECTOR module three curveball, kept in place.]
+Curveball 2.5, 1:16. Two other institutions have filed suspicious activity reports on the same adversarial pattern in the last thirty days. This is not just you. [Moved from the evasion module. It lands harder here because the room has just decided whether to ship.]
+
+1:20 to 1:45, module three: attribution.
+
+Inject 3.1, 1:20. Three vectors, one campaign. Medium-confidence attribution to a financially motivated actor. A sector ISAC has reached out. Fraud losses quantified at $6.2M.
+Inject 3.2, 1:27. The insurance carrier wants a written causation opinion linking the losses to the intrusion. The evidence supports "consistent with." It does not support "caused by."
+Decision point C, 1:32. What do you write to the carrier? Tables draft one sentence each. Read them aloud. Say which ones would survive a hostile expert and why. This is the decision point I facilitate hardest.
+Curveball 3.3, 1:38. A dependency in the pipeline's requirements file, on the public package index under a plausible name, has been phoning home on every pipeline run. Twenty-three days. Forty-seven executions. It has been in every artifact you have discussed for the last ninety minutes.
+
+1:45 to 2:00, hot wash. Three questions, room-wide. Where did the tables split, and why? Which inject changed your answer to an earlier decision? What is the first thing you would change on Monday? Then the take-home: how to scope a first AI exercise, who belongs at the table, and the three ways AI injects differ from conventional ones.
